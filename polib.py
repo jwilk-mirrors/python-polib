@@ -777,6 +777,7 @@ class POFile(_BaseFile):
             and occurrences will be discarded
           - any translations or comments in the file will be discarded,
             however dot comments and file positions will be preserved
+          - keep the fuzzy flag
 
         **Keyword argument**:
           - *refpot*: object POFile, the reference catalog.
@@ -1227,7 +1228,10 @@ class POEntry(_BaseEntry):
         self.msgctxt = other.msgctxt
         self.occurrences = other.occurrences
         self.comment = other.comment
-        self.flags = other.flags
+        fuzzy = 'fuzzy' in self.flags
+        self.flags = other.flags[:] #Clone flags
+        if fuzzy:
+            self.flags.append('fuzzy')
         self.msgid_plural = other.msgid_plural
         self.obsolete = other.obsolete
         self.previous_msgctxt = other.previous_msgctxt
