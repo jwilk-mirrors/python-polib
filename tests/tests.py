@@ -323,8 +323,8 @@ msgstr ""
         self.assertTrue(po[0] == po[0])
         self.assertFalse(po[0] < po[0])
         self.assertFalse(po[0] > po[0])
-        self.assertLess(po[0], po[1])
-        self.assertGreater(po[1], po[0])
+        self.assertTrue(po[0] < po[1])
+        self.assertTrue(po[1] > po[0])
 
 
 class TestBaseFile(unittest.TestCase):
