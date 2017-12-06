@@ -18,7 +18,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_pofile_and_mofile1(self):
         """
-        Test bad usage of pofile/mofile. 
+        Test bad usage of pofile/mofile.
         """
         data = u('''# test for pofile/mofile with string buffer
 msgid ""
@@ -206,7 +206,7 @@ msgstr ""
             exc = sys.exc_info()[1]
             msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
-    
+
     def test_detect_encoding1(self):
         """
         Test that given encoding is returned when file has no encoding defined.
@@ -238,7 +238,7 @@ msgstr ""
         try:
             self.assertEqual(polib.detect_encoding(data), 'UTF-8')
         finally:
-            f.close()    
+            f.close()
 
     def test_detect_encoding5(self):
         """
@@ -275,26 +275,26 @@ msgstr ""
             polib.unescape('\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\'),
             '\\t and \\n and \\r and \\" and \\\\'
         )
-        
+
     def test_pofile_with_subclass(self):
         """
-        Test that the pofile function correctly returns an instance of the 
+        Test that the pofile function correctly returns an instance of the
         passed in class
         """
         class CustomPOFile(polib.POFile):
             pass
-        
+
         pofile = polib.pofile('tests/test_indented.po', klass=CustomPOFile)
         self.assertEqual(pofile.__class__, CustomPOFile)
-        
+
     def test_mofile_with_subclass(self):
         """
-        Test that the mofile function correctly returns an instance of the 
+        Test that the mofile function correctly returns an instance of the
         passed in class
         """
         class CustomMOFile(polib.MOFile):
             pass
-        
+
         mofile = polib.mofile('tests/test_utf8.mo', klass=CustomMOFile)
         self.assertEqual(mofile.__class__, CustomMOFile)
 
@@ -317,6 +317,14 @@ msgstr ""
     def test_windows_path_occurrences(self):
         po = polib.pofile('tests/test_weird_occurrences.po')
         self.assertEqual(po[0].occurrences, [('C:\\foo\\bar.py', '12')])
+
+    def test_order_comparison_of_plural_po_entries(self):
+        po = polib.pofile('tests/test_plural_entries.po')
+        self.assertTrue(po[0] == po[0])
+        self.assertFalse(po[0] < po[0])
+        self.assertFalse(po[0] > po[0])
+        self.assertLess(po[0], po[1])
+        self.assertGreater(po[1], po[0])
 
 
 class TestBaseFile(unittest.TestCase):
@@ -659,7 +667,7 @@ class TestMoFile(unittest.TestCase):
             self.assertEqual(s1, s2)
         finally:
             os.remove(tmpfile)
-        
+
     def test_msgctxt(self):
         #import pdb; pdb.set_trace()
         mo = polib.mofile('tests/test_msgctxt.mo')

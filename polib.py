@@ -1082,12 +1082,21 @@ class POEntry(_BaseEntry):
         elif msgid_plural < othermsgid_plural:
             return -1
         # Compare msgstr_plural
-        msgstr_plural = self.msgstr_plural or 0
-        othermsgstr_plural = other.msgstr_plural or 0
-        if msgstr_plural > othermsgstr_plural:
+        # Because dict order comparison works different in Python <2.7 and 2.7,
+        # and does not work at all in Python 3.x, this approach is being used
+        # instead. It simulates order comparison of dicts in Python <2.7 to the
+        # required degree.
+        msgstr_plural = self.msgstr_plural or {}
+        othermsgstr_plural = other.msgstr_plural or {}
+        if len(msgstr_plural) > len(othermsgstr_plural):
             return 1
-        elif msgstr_plural < othermsgstr_plural:
+        elif len(msgstr_plural) < len(othermsgstr_plural):
             return -1
+        for idx in msgstr_plural:
+            if msgstr_plural[idx] > othermsgstr_plural[idx]:
+                return 1
+            elif msgstr_plural[idx] < othermsgstr_plural[idx]:
+                return -1
         # Compare msgid
         if self.msgid > other.msgid:
             return 1
