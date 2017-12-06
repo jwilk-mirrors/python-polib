@@ -1,0 +1,9 @@
+msgid "${n} ape"
+msgid_plural "${n} apes"
+msgstr[0] "${n} Affe"
+msgstr[1] "${n} Affen"
+
+msgid "${n} zebra"
+msgid_plural "${n} zebras"
+msgstr[0] "${n} Zebra"
+msgstr[1] "${n} Zebras"
