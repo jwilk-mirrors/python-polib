@@ -684,8 +684,8 @@ class POFile(_BaseFile):
         """
         Convenience method that returns the list of untranslated entries.
         """
-        return [e for e in self if not e.translated() and not e.obsolete
-                and not e.fuzzy]
+        return [e for e in self if not e.translated() and
+                not e.obsolete and not e.fuzzy]
 
     def fuzzy_entries(self):
         """
