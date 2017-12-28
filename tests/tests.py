@@ -375,6 +375,26 @@ class TestBaseFile(unittest.TestCase):
         f.close()
         self.assertEqual(pofile.metadata_as_entry().__unicode__(), "".join(lines))
 
+    def test_compare1(self):
+        entry1 = polib.POEntry(msgid='test1')
+        entry2 = polib.POEntry(msgid='test1')
+        self.assertEqual(entry1, entry2)
+
+    def test_compare2(self):
+        entry1 = polib.POEntry(msgid='test1')
+        entry2 = polib.POEntry(msgid='test1', msgctxt='testc')
+        self.assertTrue(entry2 > entry1)
+
+    def test_compare3(self):
+        entry1 = polib.POEntry(msgid_plural='test1')
+        entry2 = polib.POEntry(msgid_plural='test0')
+        self.assertTrue(entry1 > entry2)
+
+    def test_compare4(self):
+        entry1 = polib.POEntry(msgid='test1')
+        entry2 = polib.POEntry(msgid_plural='test0')
+        self.assertTrue(entry2 > entry1)
+
     def test_find1(self):
         pofile = polib.pofile('tests/test_pofile_helpers.po')
         entry = pofile.find('and')

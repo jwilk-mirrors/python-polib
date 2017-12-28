@@ -1068,15 +1068,15 @@ class POEntry(_BaseEntry):
         if occ1 < occ2:
             return -1
         # Compare context
-        msgctxt = self.msgctxt or 0
-        othermsgctxt = other.msgctxt or 0
+        msgctxt = self.msgctxt or ''
+        othermsgctxt = other.msgctxt or ''
         if msgctxt > othermsgctxt:
             return 1
         elif msgctxt < othermsgctxt:
             return -1
         # Compare msgid_plural
-        msgid_plural = self.msgid_plural or 0
-        othermsgid_plural = other.msgid_plural or 0
+        msgid_plural = self.msgid_plural or ''
+        othermsgid_plural = other.msgid_plural or ''
         if msgid_plural > othermsgid_plural:
             return 1
         elif msgid_plural < othermsgid_plural:
