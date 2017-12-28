@@ -2,10 +2,6 @@
 polib
 =====
 
-.. image:: https://img.shields.io/pypi/dm/polib.svg
-    :alt: Downloads
-
-
 .. image:: https://img.shields.io/pypi/pyversions/polib.svg
     :alt: Supported Python versions
 
